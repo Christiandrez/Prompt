@@ -12,6 +12,7 @@ class InferenceService:
         self.__openai_client = OpenAI()
         self.__prompt_template = 'Who won GOTY in {year}?'
         self.__prompt_template_name = 'Quien es {nombre}?'
+        self.__prompt_template_binario = 'Cambiame {num} a binario'
 
     def __inference(self, prompt):
         return CLEAN_TEXT(self.__openai_client.completions.create(
@@ -27,4 +28,8 @@ class InferenceService:
 
     def invoke_name(self, nombre: str) -> str:
         prompt = self.__prompt_template_name.format(nombre=nombre)
+        return self.__inference(prompt)
+
+    def invoke_binario(self, num: str) -> str:
+        prompt = self.__prompt_template_binario.format(num=num)
         return self.__inference(prompt)
